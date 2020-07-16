@@ -3,23 +3,21 @@ const cors = require('cors')
 const app = express()
 const port = 4000
 
-// app.use(cors())
-
-
-
+app.use(cors())
+ 
 // var corsOptions = {
 //     origin: '*',
 //     optionsSuccessStatus: 200
 // }
 
-app.options('/images/', function (req, res, next) {
-    console.log('Pre-Flight Test')
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Content-Type,Content-Length, Authorization, Accept, X-Requested-With, Access-Control-Allow-Origin");
-    res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
-    res.status(200);
-    res.end()
-})
+// app.options('/images/', function (req, res, next) {
+//     console.log('Pre-Flight Test')
+//     res.header("Access-Control-Allow-Origin", "*");
+//     res.header("Access-Control-Allow-Headers", "Content-Type,Content-Length, Authorization, Accept, X-Requested-With, Access-Control-Allow-Origin");
+//     res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
+//     res.status(200);
+//     res.end()
+// })
 
 
 express.static('/')
@@ -32,10 +30,11 @@ app.get('/', (req, res) => res.send('Hello World! Get.'))
 app.get('/images', function (req, res, next) {
     res.set('Access-Control-Allow-Origin', '*')
     res.set('Access-Control-Allow-Headers', 'Content-Type,Content-Length, Authorization, Accept, X-Requested-With, Access-Control-Allow-Origin')
+    res.set('Access-Control-Expose-Headers', 'Content-Type,Content-Length, Authorization, Accept, X-Requested-With, Access-Control-Allow-Origin')
     res.send([
-        '/images/elaicheesecake.png',
-        '/images/uthappizza.png',
-        '/images/vadonut.png'
+        'http://localhost:4000/images/elaicheesecake.png',
+        'http://localhost:4000/images/uthappizza.png',
+        'http://localhost:4000/images/vadonut.png'
     ]
 )})
 
